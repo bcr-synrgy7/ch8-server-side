@@ -1,6 +1,6 @@
 import { Knex } from 'knex'
 
-export async function seed (knex: Knex): Promise<void> {
+export async function seed(knex: Knex): Promise<void> {
   try {
     await knex.transaction(async (trx) => {
       await trx.raw('TRUNCATE TABLE roles RESTART IDENTITY CASCADE')

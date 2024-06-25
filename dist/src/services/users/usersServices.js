@@ -26,10 +26,10 @@ class UsersService {
         return __awaiter(this, void 0, void 0, function* () {
             (0, usersValidators_1.validateUserInput)(username, email, password);
             const existingUser = yield this.usersRepository.findByEmail(email);
-            if (existingUser) {
+            if (existingUser != null) {
                 throw new objection_1.ValidationError({
                     type: 'ModelValidation',
-                    message: 'Email already registered',
+                    message: 'Email already registered'
                 });
             }
             const hashedPassword = yield this.hashPassword(password);
@@ -40,7 +40,7 @@ class UsersService {
                 password: hashedPassword,
                 roleId: '1',
                 createdAt: new Date(),
-                updatedAt: new Date(),
+                updatedAt: new Date()
             });
         });
     }
@@ -49,17 +49,17 @@ class UsersService {
             var _a;
             (0, usersValidators_1.validateLoginInput)(email, password);
             const user = yield this.usersRepository.findByEmail(email);
-            if (!user) {
+            if (user == null) {
                 throw new objection_1.ValidationError({
                     type: 'ModelValidation',
-                    message: 'Invalid email or password',
+                    message: 'Invalid email or password'
                 });
             }
             const passwordMatch = yield this.comparePassword(password, user.password);
             if (!passwordMatch) {
                 throw new objection_1.ValidationError({
                     type: 'ModelValidation',
-                    message: 'Invalid email or password',
+                    message: 'Invalid email or password'
                 });
             }
             const token = (0, jwtUtils_1.generateToken)(user.id);
@@ -71,10 +71,10 @@ class UsersService {
         return __awaiter(this, void 0, void 0, function* () {
             var _a;
             const user = yield this.usersRepository.findById(userId);
-            if (!user) {
+            if (user == null) {
                 throw new objection_1.ValidationError({
                     type: 'ModelValidation',
-                    message: 'User not found',
+                    message: 'User not found'
                 });
             }
             const role = yield this.usersRepository.findRoleById(user.roleId);
@@ -84,36 +84,32 @@ class UsersService {
     getAllUsers(page, pageSize) {
         return __awaiter(this, void 0, void 0, function* () {
             const totalCount = yield this.getTotalCount();
-            const totalPages = Math.ceil(totalCount / pageSize);
             const offset = (page - 1) * pageSize;
             const users = yield this.usersRepository.findAllUsersWithRoles(offset, pageSize // Menggunakan pageSize sebagai nilai untuk parameter limit
             );
-            const usersWithRoles = users.map((user) => {
-                var _a, _b;
-                return new usersCurrentDto_1.UserCurrentDto(user.id, user.email, user.username, (_b = (_a = user.role) === null || _a === void 0 ? void 0 : _a.userRole) !== null && _b !== void 0 ? _b : '');
-            });
+            const usersWithRoles = users.map((user) => { var _a, _b; return new usersCurrentDto_1.UserCurrentDto(user.id, user.email, user.username, (_b = (_a = user.role) === null || _a === void 0 ? void 0 : _a.userRole) !== null && _b !== void 0 ? _b : ''); });
             return { users: usersWithRoles, totalCount };
         });
     }
     updateUserRole(userId, newRoleId) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield this.usersRepository.findById(userId);
-            if (!user) {
+            if (user == null) {
                 throw new objection_1.ValidationError({
                     type: 'ModelValidation',
-                    message: 'User not found',
+                    message: 'User not found'
                 });
             }
             if (newRoleId !== '2') {
                 throw new objection_1.ValidationError({
                     type: 'ModelValidation',
-                    message: 'Cannot update user role to super admin',
+                    message: 'Cannot update user role to super admin'
                 });
             }
             if (user.roleId === '3') {
                 throw new objection_1.ValidationError({
                     type: 'ModelValidation',
-                    message: 'Cannot update super admin role',
+                    message: 'Cannot update super admin role'
                 });
             }
             yield this.usersRepository.updateUserRole(userId, newRoleId);
@@ -121,7 +117,7 @@ class UsersService {
     }
     getTotalCount() {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.usersRepository.getTotalCount();
+            return yield this.usersRepository.getTotalCount();
         });
     }
 }

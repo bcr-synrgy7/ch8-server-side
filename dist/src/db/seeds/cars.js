@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.seed = void 0;
+exports.seed = seed;
 const uuid_1 = require("uuid");
 function seed(knex) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -25,7 +25,7 @@ function seed(knex) {
                 createdBy: 'admin',
                 updatedBy: 'admin',
                 createdAt: new Date(),
-                updatedAt: new Date(),
+                updatedAt: new Date()
             },
             {
                 id: (0, uuid_1.v4)(),
@@ -38,7 +38,7 @@ function seed(knex) {
                 updatedBy: 'admin',
                 deletedBy: 'firman',
                 createdAt: new Date(),
-                updatedAt: new Date(),
+                updatedAt: new Date()
             },
             {
                 id: (0, uuid_1.v4)(),
@@ -50,7 +50,7 @@ function seed(knex) {
                 createdBy: 'admin',
                 updatedBy: 'admin',
                 createdAt: new Date(),
-                updatedAt: new Date(),
+                updatedAt: new Date()
             },
             {
                 id: (0, uuid_1.v4)(),
@@ -63,7 +63,7 @@ function seed(knex) {
                 updatedBy: 'admin',
                 deletedBy: 'rizki',
                 createdAt: new Date(),
-                updatedAt: new Date(),
+                updatedAt: new Date()
             },
             {
                 id: (0, uuid_1.v4)(),
@@ -75,7 +75,7 @@ function seed(knex) {
                 createdBy: 'admin',
                 updatedBy: 'admin',
                 createdAt: new Date(),
-                updatedAt: new Date(),
+                updatedAt: new Date()
             },
             {
                 id: (0, uuid_1.v4)(),
@@ -89,7 +89,7 @@ function seed(knex) {
                 startRent: '2012/03/05',
                 finishRent: '2012/03/10',
                 createdAt: new Date(),
-                updatedAt: new Date(),
+                updatedAt: new Date()
             },
             {
                 id: (0, uuid_1.v4)(),
@@ -101,7 +101,7 @@ function seed(knex) {
                 createdBy: 'admin',
                 updatedBy: 'admin',
                 createdAt: new Date(),
-                updatedAt: new Date(),
+                updatedAt: new Date()
             },
             {
                 id: (0, uuid_1.v4)(),
@@ -113,7 +113,7 @@ function seed(knex) {
                 createdBy: 'admin',
                 updatedBy: 'admin',
                 createdAt: new Date(),
-                updatedAt: new Date(),
+                updatedAt: new Date()
             },
             {
                 id: (0, uuid_1.v4)(),
@@ -125,7 +125,7 @@ function seed(knex) {
                 createdBy: 'admin',
                 updatedBy: 'admin',
                 createdAt: new Date(),
-                updatedAt: new Date(),
+                updatedAt: new Date()
             },
             {
                 id: (0, uuid_1.v4)(),
@@ -137,7 +137,7 @@ function seed(knex) {
                 createdBy: 'admin',
                 updatedBy: 'admin',
                 createdAt: new Date(),
-                updatedAt: new Date(),
+                updatedAt: new Date()
             },
             {
                 id: (0, uuid_1.v4)(),
@@ -149,7 +149,7 @@ function seed(knex) {
                 createdBy: 'admin',
                 updatedBy: 'admin',
                 createdAt: new Date(),
-                updatedAt: new Date(),
+                updatedAt: new Date()
             },
             {
                 id: (0, uuid_1.v4)(),
@@ -161,9 +161,8 @@ function seed(knex) {
                 createdBy: 'admin',
                 updatedBy: 'admin',
                 createdAt: new Date(),
-                updatedAt: new Date(),
-            },
+                updatedAt: new Date()
+            }
         ]);
     });
 }
-exports.seed = seed;

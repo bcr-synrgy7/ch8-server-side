@@ -9,19 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.down = exports.up = void 0;
+exports.up = up;
+exports.down = down;
 function up(knex) {
     return __awaiter(this, void 0, void 0, function* () {
-        return knex.schema.createTable('roles', (table) => {
+        return yield knex.schema.createTable('roles', (table) => {
             table.string('id').primary();
             table.string('userRole').notNullable();
         });
     });
 }
-exports.up = up;
 function down(knex) {
     return __awaiter(this, void 0, void 0, function* () {
-        return knex.schema.dropTable('roles');
+        return yield knex.schema.dropTable('roles');
     });
 }
-exports.down = down;

@@ -9,10 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.down = exports.up = void 0;
+exports.up = up;
+exports.down = down;
 function up(knex) {
     return __awaiter(this, void 0, void 0, function* () {
-        return knex.schema.createTable('users', (table) => {
+        return yield knex.schema.createTable('users', (table) => {
             table.string('id').primary();
             table.string('username').notNullable();
             table.string('email').notNullable().unique();
@@ -23,10 +24,8 @@ function up(knex) {
         });
     });
 }
-exports.up = up;
 function down(knex) {
     return __awaiter(this, void 0, void 0, function* () {
-        return knex.schema.dropTable('users');
+        return yield knex.schema.dropTable('users');
     });
 }
-exports.down = down;

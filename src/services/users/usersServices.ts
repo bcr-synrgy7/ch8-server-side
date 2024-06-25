@@ -8,13 +8,13 @@ import { IUsersService } from './usersServiceInterface'
 import { UserCurrentDto } from '../../dto/users/usersCurrentDto'
 
 export class UsersService implements IUsersService {
-  constructor (
+  constructor(
     private readonly usersRepository: IUsersRepository,
     private readonly hashPassword: (password: string) => Promise<string>,
     private readonly comparePassword: (password: string, hashedPassword: string) => Promise<boolean>
   ) {}
 
-  async registerUser (username: string, email: string, password: string): Promise<void> {
+  async registerUser(username: string, email: string, password: string): Promise<void> {
     validateUserInput(username, email, password)
 
     const existingUser = await this.usersRepository.findByEmail(email)
@@ -38,7 +38,7 @@ export class UsersService implements IUsersService {
     })
   }
 
-  async loginUser (email: string, password: string): Promise<{ user: UserDto, token: string }> {
+  async loginUser(email: string, password: string): Promise<{ user: UserDto, token: string }> {
     validateLoginInput(email, password)
 
     const user = await this.usersRepository.findByEmail(email)
@@ -63,7 +63,7 @@ export class UsersService implements IUsersService {
     return { user: new UserDto(user.username, role?.userRole ?? ''), token }
   }
 
-  async getCurrentUser (userId: string): Promise<UserDto> {
+  async getCurrentUser(userId: string): Promise<UserDto> {
     const user = await this.usersRepository.findById(userId)
     if (user == null) {
       throw new ValidationError({
@@ -77,7 +77,7 @@ export class UsersService implements IUsersService {
     return new UserCurrentDto(user.id, user.username, user.email, role?.userRole ?? '')
   }
 
-  async getAllUsers (page: number, pageSize: number): Promise<{ users: UserCurrentDto[], totalCount: number }> {
+  async getAllUsers(page: number, pageSize: number): Promise<{ users: UserCurrentDto[], totalCount: number }> {
     const totalCount = await this.getTotalCount()
     const offset = (page - 1) * pageSize
     const users = await this.usersRepository.findAllUsersWithRoles(
@@ -92,7 +92,7 @@ export class UsersService implements IUsersService {
     return { users: usersWithRoles, totalCount }
   }
 
-  async updateUserRole (userId: string, newRoleId: string): Promise<void> {
+  async updateUserRole(userId: string, newRoleId: string): Promise<void> {
     const user = await this.usersRepository.findById(userId)
     if (user == null) {
       throw new ValidationError({
@@ -118,7 +118,7 @@ export class UsersService implements IUsersService {
     await this.usersRepository.updateUserRole(userId, newRoleId)
   }
 
-  async getTotalCount (): Promise<number> {
+  async getTotalCount(): Promise<number> {
     return await this.usersRepository.getTotalCount()
   }
 }

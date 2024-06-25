@@ -3,7 +3,7 @@ import { ICarRepository } from './carsAdminRepositoryInterface'
 import { CarDTO } from '../../../dto/cars/carsDto'
 
 class CarRepository implements ICarRepository {
-  private mapToCarDTO (car: any): CarDTO {
+  private mapToCarDTO(car: any): CarDTO {
     return {
       id: car.id,
       name: car.name,
@@ -21,7 +21,7 @@ class CarRepository implements ICarRepository {
     }
   }
 
-  async getAllCars (category?: string, name?: string, page?: number, pageSize?: number): Promise<CarDTO[]> {
+  async getAllCars(category?: string, name?: string, page?: number, pageSize?: number): Promise<CarDTO[]> {
     const query = CarsModel.query().orderBy('createdAt', 'desc')
 
     if (category) {
@@ -43,26 +43,26 @@ class CarRepository implements ICarRepository {
     return cars.map(this.mapToCarDTO)
   }
 
-  async getCarById (carId: string): Promise<CarDTO | undefined> {
+  async getCarById(carId: string): Promise<CarDTO | undefined> {
     const car = await CarsModel.query().findById(carId)
     return (car != null) ? this.mapToCarDTO(car) : undefined
   }
 
-  async createCar (carData: Partial<CarDTO>): Promise<CarDTO> {
+  async createCar(carData: Partial<CarDTO>): Promise<CarDTO> {
     const newCar = await CarsModel.query().insert(carData)
     return this.mapToCarDTO(newCar)
   }
 
-  async updateCar (carId: string, carData: Partial<CarDTO>): Promise<CarDTO> {
+  async updateCar(carId: string, carData: Partial<CarDTO>): Promise<CarDTO> {
     const updatedCar = await CarsModel.query().patchAndFetchById(carId, carData)
     return this.mapToCarDTO(updatedCar)
   }
 
-  async deleteCarById (carId: string): Promise<number> {
+  async deleteCarById(carId: string): Promise<number> {
     return await CarsModel.query().deleteById(carId)
   }
 
-  async getTotalCount (category?: string, name?: string): Promise<number> {
+  async getTotalCount(category?: string, name?: string): Promise<number> {
     const query = CarsModel.query()
 
     if (category) {

@@ -10,11 +10,11 @@ export class UsersModel extends Model {
   createdAt!: Date
   updatedAt!: Date
 
-  static get tableName () {
+  static get tableName() {
     return 'users'
   }
 
-  static get relationMappings () {
+  static get relationMappings() {
     return {
       role: {
         relation: Model.BelongsToOneRelation,

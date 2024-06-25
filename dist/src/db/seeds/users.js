@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.seed = void 0;
+exports.seed = seed;
 const uuid_1 = require("uuid");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 function seed(knex) {
@@ -26,7 +26,7 @@ function seed(knex) {
                 password: yield bcrypt_1.default.hash('member12345', 10),
                 roleId: '1',
                 createdAt: new Date(),
-                updatedAt: new Date(),
+                updatedAt: new Date()
             },
             {
                 id: (0, uuid_1.v4)(),
@@ -35,7 +35,7 @@ function seed(knex) {
                 password: yield bcrypt_1.default.hash('admin12345', 10),
                 roleId: '2',
                 createdAt: new Date(),
-                updatedAt: new Date(),
+                updatedAt: new Date()
             },
             {
                 id: (0, uuid_1.v4)(),
@@ -44,9 +44,8 @@ function seed(knex) {
                 password: yield bcrypt_1.default.hash('sadmin12345', 10),
                 roleId: '3',
                 createdAt: new Date(),
-                updatedAt: new Date(),
-            },
+                updatedAt: new Date()
+            }
         ]);
     });
 }
-exports.seed = seed;

@@ -65,7 +65,7 @@ class UsersController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const user = req.user;
-                if (user) {
+                if (user != null) {
                     const userDto = yield this.usersService.getCurrentUser(user.id);
                     (0, responseHandler_1.wrapResponse)(res, 200, 'User fetched successfully', { user: userDto });
                 }
@@ -82,16 +82,16 @@ class UsersController {
     getAllUsers(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                let { page, pageSize } = req.query;
+                const { page, pageSize } = req.query;
                 // Parse page and pageSize to numbers
-                const pageNumber = page ? parseInt(page, 10) : 1; // Assuming default page is 1
-                const pageSizeNumber = pageSize ? parseInt(pageSize, 10) : 10; // Assuming default pageSize is 10
+                const pageNumber = page ? parseInt(page, 10) : 1;
+                const pageSizeNumber = pageSize ? parseInt(pageSize, 10) : 10;
                 const { users, totalCount } = yield this.usersService.getAllUsers(pageNumber, pageSizeNumber);
                 // Calculate total pages
                 const totalPages = Math.ceil(totalCount / pageSizeNumber);
                 (0, responseHandler_1.wrapResponse)(res, 200, 'Users fetched successfully', {
                     users,
-                    totalPages,
+                    totalPages
                 });
             }
             catch (error) {

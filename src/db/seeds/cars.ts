@@ -1,7 +1,7 @@
 import { Knex } from 'knex'
 import { v4 as uuidv4 } from 'uuid'
 
-export async function seed (knex: Knex): Promise<void> {
+export async function seed(knex: Knex): Promise<void> {
   await knex.raw('TRUNCATE TABLE cars RESTART IDENTITY')
 
   await knex('cars').insert([

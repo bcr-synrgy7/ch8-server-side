@@ -4,7 +4,7 @@ import { CarUsersDTO } from '../../../dto/cars/carsUsersDto'
 import { CarsModel } from '../../../db/models/carsModel'
 
 class CarsUsersRepository implements CarsUsersRepositoryInterface {
-  async getAllCars (category?: string, name?: string, page?: number, pageSize?: number): Promise<CarUsersDTO[]> {
+  async getAllCars(category?: string, name?: string, page?: number, pageSize?: number): Promise<CarUsersDTO[]> {
     const query = CarsModel.query().whereNull('deletedBy').andWhere('onPublish', true)
 
     if (category) {
@@ -35,7 +35,7 @@ class CarsUsersRepository implements CarsUsersRepositoryInterface {
     }))
   }
 
-  async getCarById (carId: string): Promise<CarUsersDTO | undefined> {
+  async getCarById(carId: string): Promise<CarUsersDTO | undefined> {
     const car = await CarsModel.query().findById(carId).whereNull('deletedBy').andWhere('onPublish', true)
 
     if (car == null) return undefined
@@ -51,7 +51,7 @@ class CarsUsersRepository implements CarsUsersRepositoryInterface {
     }
   }
 
-  async getTotalCount (category?: string, name?: string): Promise<number> {
+  async getTotalCount(category?: string, name?: string): Promise<number> {
     const query = CarsModel.query().whereNull('deletedBy').andWhere('onPublish', true)
 
     if (category) {

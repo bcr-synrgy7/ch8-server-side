@@ -49,7 +49,7 @@ const getUsernameFromToken = (token) => __awaiter(void 0, void 0, void 0, functi
     }
     try {
         const user = yield usersModel_1.UsersModel.query().findById(userId);
-        return user ? user.username : null;
+        return user != null ? user.username : null;
     }
     catch (error) {
         console.error('Error fetching user from database:', error);

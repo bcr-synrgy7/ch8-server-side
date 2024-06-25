@@ -21,9 +21,10 @@ const carsAdminRepository_1 = __importDefault(require("../../../repositories/car
 class CarService {
     getAllCars(res_1, category_1, name_1) {
         return __awaiter(this, arguments, void 0, function* (res, category, name, page = 1, pageSize = -1) {
+            var _a;
             try {
                 let cars;
-                if (category || name || pageSize !== -1) {
+                if ((_a = category !== null && category !== void 0 ? category : name) !== null && _a !== void 0 ? _a : pageSize !== -1) {
                     cars = yield carsAdminRepository_1.default.getAllCars(category, name, page, pageSize);
                     if (cars.length === 0) {
                         (0, responseHandler_1.wrapErrorResponse)(res, 404, 'No cars found with the specified criteria');
@@ -33,7 +34,7 @@ class CarService {
                     const totalPages = pageSize !== -1 ? Math.ceil(totalCount / pageSize) : 1;
                     (0, responseHandler_1.wrapResponse)(res, 200, 'Get all car data successfully', {
                         cars,
-                        totalPages,
+                        totalPages
                     });
                 }
                 else {
@@ -56,7 +57,7 @@ class CarService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const car = yield carsAdminRepository_1.default.getCarById(carId);
-                if (!car) {
+                if (car == null) {
                     (0, responseHandler_1.wrapErrorResponse)(res, 404, 'Car with the specified ID not found');
                 }
                 else {
@@ -78,7 +79,7 @@ class CarService {
             if (isNaN(price) || price <= 0) {
                 throw new Error('Price must be a positive number');
             }
-            if (!req.file) {
+            if (req.file == null) {
                 throw new Error('No image file uploaded');
             }
             if (!req.file.mimetype.startsWith('image/')) {
@@ -91,10 +92,10 @@ class CarService {
             }
             const fileBase64 = req.file.buffer.toString('base64');
             const file = `data:${req.file.mimetype};base64,${fileBase64}`;
-            return new Promise((resolve, reject) => {
+            return yield new Promise((resolve, reject) => {
                 const uniqueFileName = (0, multer_1.generateUniqueFileName)(file);
                 cloudinaryConfig_1.default.uploader.upload(file, { folder: 'challenge_5', public_id: uniqueFileName }, (error, result) => __awaiter(this, void 0, void 0, function* () {
-                    if (error) {
+                    if (error != null) {
                         reject(new Error(error.message));
                         return;
                     }
@@ -108,14 +109,14 @@ class CarService {
                             category,
                             price: parseInt(price, 10),
                             image: imageUrl,
-                            startRent: startRentDate ? startRentDate.toISOString() : null,
-                            finishRent: finishRentDate ? finishRentDate.toISOString() : null,
+                            startRent: (startRentDate != null) ? startRentDate.toISOString() : null,
+                            finishRent: (finishRentDate != null) ? finishRentDate.toISOString() : null,
                             onPublish: true,
                             createdBy: username,
                             updatedBy: username,
                             deletedBy: null,
                             createdAt: new Date(),
-                            updatedAt: new Date(),
+                            updatedAt: new Date()
                         };
                         const createdCar = yield carsAdminRepository_1.default.createCar(newCar);
                         resolve(createdCar);
@@ -136,7 +137,7 @@ class CarService {
             const { name, price, category, startRent, finishRent } = req.body;
             try {
                 const existingCar = yield carsAdminRepository_1.default.getCarById(carId);
-                if (!existingCar) {
+                if (existingCar == null) {
                     return null;
                 }
                 const token = req.headers.authorization;
@@ -148,7 +149,7 @@ class CarService {
                     console.log(price);
                     throw new Error('Price must be a positive number');
                 }
-                if (req.file) {
+                if (req.file != null) {
                     const fileBase64 = req.file.buffer.toString('base64');
                     const file = `data:${req.file.mimetype};base64,${fileBase64}`;
                     const uniqueFileName = (0, multer_1.generateUniqueFileName)(file);
@@ -158,7 +159,7 @@ class CarService {
                     }
                     const result = yield cloudinaryConfig_1.default.uploader.upload(file, {
                         folder: 'challenge_5',
-                        public_id: uniqueFileName,
+                        public_id: uniqueFileName
                     });
                     existingCar.image = result.secure_url;
                 }
@@ -178,7 +179,7 @@ class CarService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const car = yield carsAdminRepository_1.default.getCarById(carId);
-                if (!car) {
+                if (car == null) {
                     (0, responseHandler_1.wrapErrorResponse)(res, 404, 'Car with the specified ID not found');
                     return;
                 }
@@ -187,7 +188,7 @@ class CarService {
                 const updatedCar = yield carsAdminRepository_1.default.updateCar(carId, {
                     onPublish: false,
                     deletedBy: username,
-                    updatedAt: new Date(),
+                    updatedAt: new Date()
                 });
                 if (updatedCar) {
                     (0, responseHandler_1.wrapErrorResponse)(res, 200, 'Data Berhasil Dihapus');

@@ -20,13 +20,13 @@ class CarsUsersService {
             const cars = yield this.repository.getAllCars(category, name, page, pageSize);
             return {
                 data: cars,
-                totalPages,
+                totalPages
             };
         });
     }
     getCarById(carId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.repository.getCarById(carId);
+            return yield this.repository.getCarById(carId);
         });
     }
 }

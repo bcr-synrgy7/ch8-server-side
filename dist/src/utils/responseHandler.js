@@ -5,14 +5,14 @@ const wrapResponse = (res, status, message, data) => {
     res.status(status).json({
         status,
         message,
-        data,
+        data
     });
 };
 exports.wrapResponse = wrapResponse;
 const wrapErrorResponse = (res, status, message) => {
     res.status(status).json({
         status,
-        message,
+        message
     });
 };
 exports.wrapErrorResponse = wrapErrorResponse;

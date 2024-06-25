@@ -15,22 +15,22 @@ const rolesModel_1 = require("../../db/models/rolesModel");
 class UsersRepository {
     findById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return usersModel_1.UsersModel.query().findById(id);
+            return yield usersModel_1.UsersModel.query().findById(id);
         });
     }
     findRoleById(roleId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return rolesModel_1.RolesModel.query().findById(roleId);
+            return yield rolesModel_1.RolesModel.query().findById(roleId);
         });
     }
     findByEmail(email) {
         return __awaiter(this, void 0, void 0, function* () {
-            return usersModel_1.UsersModel.query().findOne({ email });
+            return yield usersModel_1.UsersModel.query().findOne({ email });
         });
     }
     insertUser(user) {
         return __awaiter(this, void 0, void 0, function* () {
-            return usersModel_1.UsersModel.query().insert(user);
+            return yield usersModel_1.UsersModel.query().insert(user);
         });
     }
     findAllUsersWithRoles(offset, limit // Tambahkan parameter limit dengan tipe number
@@ -49,7 +49,7 @@ class UsersRepository {
     }
     updateUserRole(userId, newRoleId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return usersModel_1.UsersModel.query().patchAndFetchById(userId, { roleId: newRoleId });
+            return yield usersModel_1.UsersModel.query().patchAndFetchById(userId, { roleId: newRoleId });
         });
     }
     getTotalCount() {

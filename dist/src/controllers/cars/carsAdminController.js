@@ -21,7 +21,11 @@ class CarsAdminController {
                 const category = req.query.category;
                 const name = req.query.name;
                 const page = parseInt(req.query.page) || 1;
-                const pageSize = parseInt(req.query.pageSize) || -1;
+                let pageSize = parseInt(req.query.pageSize) || -1;
+                // Explicit check for NaN and zero values
+                if (isNaN(pageSize) || pageSize <= 0) {
+                    pageSize = -1;
+                }
                 yield carsAdminServices_1.default.getAllCars(res, category, name, page, pageSize);
             }
             catch (error) {
@@ -40,7 +44,7 @@ class CarsAdminController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const newCar = yield carsAdminServices_1.default.createCar(req);
-                if (newCar) {
+                if (newCar != null) {
                     (0, responseHandler_1.wrapResponse)(res, 201, 'Data Berhasil Disimpan', newCar);
                 }
                 else {
@@ -49,12 +53,14 @@ class CarsAdminController {
             }
             catch (error) {
                 console.error(error);
-                if (error.message.includes('Missing required fields') ||
-                    error.message.includes('Price must be a positive number') ||
-                    error.message.includes('No image file uploaded') ||
-                    error.message.includes('Only image files') ||
-                    error.message.includes('Failed to get username from token')) {
-                    (0, responseHandler_1.wrapErrorResponse)(res, 400, 'Invalid Input: ' + error.message);
+                // Explicit type check for error.message
+                if (typeof error.message === 'string' &&
+                    (error.message.includes('Missing required fields') ||
+                        error.message.includes('Price must be a positive number') ||
+                        error.message.includes('No image file uploaded') ||
+                        error.message.includes('Only image files') ||
+                        error.message.includes('Failed to get username from token'))) {
+                    (0, responseHandler_1.wrapErrorResponse)(res, 400, 'Invalid Input: ' + String(error.message));
                 }
                 else {
                     (0, responseHandler_1.wrapErrorResponse)(res, 500, 'Internal Server Error');
@@ -66,7 +72,7 @@ class CarsAdminController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const updatedCar = yield carsAdminServices_1.default.updateCar(req);
-                if (updatedCar) {
+                if (updatedCar != null) {
                     (0, responseHandler_1.wrapResponse)(res, 200, 'Car updated successfully', updatedCar);
                 }
                 else {
@@ -75,8 +81,9 @@ class CarsAdminController {
             }
             catch (error) {
                 console.error(error);
-                if (error.message === 'Price must be a positive number' ||
-                    error.message === 'Failed to get username from token') {
+                // Explicit type check for error.message
+                if (typeof error.message === 'string' &&
+                    (error.message === 'Price must be a positive number' || error.message === 'Failed to get username from token')) {
                     (0, responseHandler_1.handleBadRequestError)(res, error.message);
                 }
                 else {
@@ -88,7 +95,14 @@ class CarsAdminController {
     deleteCar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const carId = req.params.id;
-            carsAdminServices_1.default.deleteCarById(req, res, carId);
+            // Await the promise and handle errors
+            try {
+                yield carsAdminServices_1.default.deleteCarById(req, res, carId);
+            }
+            catch (error) {
+                console.error('Error deleting car:', error);
+                (0, responseHandler_1.handleInternalServerError)(res, 'Internal Server Error');
+            }
         });
     }
 }

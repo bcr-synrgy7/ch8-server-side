@@ -15,7 +15,7 @@ export class CarsModel extends Model {
   createdAt!: Date
   updatedAt!: Date
 
-  static get tableName (): string {
+  static get tableName(): string {
     return 'cars'
   }
 }

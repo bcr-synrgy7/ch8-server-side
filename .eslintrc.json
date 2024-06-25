@@ -21,5 +21,18 @@
     "package.json",
     "package-lock.json"
   ],
-  "rules": {}
+  "rules": {
+    "@typescript-eslint/space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "never",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ],
+    "no-useless-constructor": "error",
+    "camelcase": "off",
+    "no-unused-vars": "warn",
+    "callback-return": ["warn", ["warn", "callback", "next"]]
+  }
 }

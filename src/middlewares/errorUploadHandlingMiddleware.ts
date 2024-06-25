@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import multer from 'multer'
 
-export default function errorHandlingMiddleware (err: any, req: Request, res: Response, next: NextFunction) {
+export default function errorHandlingMiddleware(err: any, req: Request, res: Response, next: NextFunction) {
   if (err instanceof multer.MulterError) {
     // Handle MulterError here
     const errorResponse = {

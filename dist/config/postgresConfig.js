@@ -12,7 +12,7 @@ const knexInstance = (0, knex_1.default)({
     connection: {
         database: process.env.DB_DATABASE,
         user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-    },
+        password: process.env.DB_PASSWORD
+    }
 });
 exports.knexInstance = knexInstance;

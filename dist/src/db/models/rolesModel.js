@@ -14,9 +14,9 @@ class RolesModel extends objection_1.Model {
                 modelClass: usersModel_1.UsersModel,
                 join: {
                     from: 'roles.id',
-                    to: 'users.role_id',
-                },
-            },
+                    to: 'users.role_id'
+                }
+            }
         };
     }
 }

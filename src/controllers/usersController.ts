@@ -1,4 +1,3 @@
-// UsersController.ts
 import { Request, Response } from 'express'
 import {
   wrapResponse,
@@ -16,7 +15,7 @@ import { hashPassword, comparePassword } from '../utils/bcryptUtils'
 export class UsersController {
   private readonly usersService: UsersService
 
-  constructor () {
+  constructor() {
     const usersRepository = new UsersRepository()
     this.usersService = new UsersService(usersRepository, hashPassword, comparePassword)
 
@@ -27,7 +26,7 @@ export class UsersController {
     this.getAllUsers = this.getAllUsers.bind(this)
   }
 
-  async registerUser (req: Request, res: Response): Promise<void> {
+  async registerUser(req: Request, res: Response): Promise<void> {
     const { username, email, password } = req.body
     try {
       await this.usersService.registerUser(username, email, password)
@@ -42,7 +41,7 @@ export class UsersController {
     }
   }
 
-  async loginUser (req: Request, res: Response): Promise<void> {
+  async loginUser(req: Request, res: Response): Promise<void> {
     const { email, password } = req.body
     try {
       const result = await this.usersService.loginUser(email, password)
@@ -57,7 +56,7 @@ export class UsersController {
     }
   }
 
-  async getCurrentUser (req: AuthenticatedRequest, res: Response): Promise<void> {
+  async getCurrentUser(req: AuthenticatedRequest, res: Response): Promise<void> {
     try {
       const user = req.user
       if (user != null) {
@@ -72,13 +71,13 @@ export class UsersController {
     }
   }
 
-  async getAllUsers (req: Request, res: Response): Promise<void> {
+  async getAllUsers(req: Request, res: Response): Promise<void> {
     try {
       const { page, pageSize } = req.query
 
       // Parse page and pageSize to numbers
-      const pageNumber = page ? parseInt(page as string, 10) : 1 // Assuming default page is 1
-      const pageSizeNumber = pageSize ? parseInt(pageSize as string, 10) : 10 // Assuming default pageSize is 10
+      const pageNumber = page ? parseInt(page as string, 10) : 1
+      const pageSizeNumber = pageSize ? parseInt(pageSize as string, 10) : 10
 
       const { users, totalCount } = await this.usersService.getAllUsers(pageNumber, pageSizeNumber)
 
@@ -95,7 +94,7 @@ export class UsersController {
     }
   }
 
-  async updateUserRole (req: Request, res: Response): Promise<void> {
+  async updateUserRole(req: Request, res: Response): Promise<void> {
     const { userId } = req.params
     const { newRoleId } = req.body
     try {

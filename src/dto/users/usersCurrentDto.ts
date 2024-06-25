@@ -4,7 +4,7 @@ export class UserCurrentDto {
   public username: string
   public role: string
 
-  constructor (id: string, email: string, username: string, role: string) {
+  constructor(id: string, email: string, username: string, role: string) {
     this.id = id
     this.email = email
     this.username = username

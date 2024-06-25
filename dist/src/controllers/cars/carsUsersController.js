@@ -39,7 +39,8 @@ class CarsUsersController {
             try {
                 const { id } = req.params;
                 const car = yield this.carsUsersService.getCarById(id);
-                if (car) {
+                if (car !== null && car !== undefined) {
+                    // Perubahan di sini
                     (0, responseHandler_1.wrapResponse)(res, 200, 'Car fetched successfully', car);
                 }
                 else {

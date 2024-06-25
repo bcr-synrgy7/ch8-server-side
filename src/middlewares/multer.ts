@@ -22,7 +22,7 @@ const upload = multer({ storage, fileFilter })
 
 export default upload
 
-function generateRandomCode (length: number): string {
+function generateRandomCode(length: number): string {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
   let result = ''
   for (let i = 0; i < length; i++) {
@@ -31,18 +31,18 @@ function generateRandomCode (length: number): string {
   return result
 }
 
-function getFileExtension (fileName: string): string {
+function getFileExtension(fileName: string): string {
   return fileName.slice(((fileName.lastIndexOf('.') - 1) >>> 0) + 2)
 }
 
-export function generateUniqueFileName (fileName: string): string {
+export function generateUniqueFileName(fileName: string): string {
   const timestamp = new Date().getTime()
   const randomCode = generateRandomCode(8)
   const fileExtension = getFileExtension(fileName)
   return `${timestamp}_${randomCode}.${fileExtension}`
 }
 
-export function extractPublicId (imageUrl: string): string | null {
+export function extractPublicId(imageUrl: string): string | null {
   const match = imageUrl.match(/\/([^/]+)\/([^/]+)\./)
   return (match != null) ? `${match[1]}/${match[2]}` : null
 }

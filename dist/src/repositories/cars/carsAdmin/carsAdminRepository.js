@@ -25,7 +25,7 @@ class CarRepository {
             updatedBy: car.updatedBy,
             deletedBy: car.deletedBy,
             createdAt: car.createdAt,
-            updatedAt: car.updatedAt,
+            updatedAt: car.updatedAt
         };
     }
     getAllCars(category, name, page, pageSize) {
@@ -50,7 +50,7 @@ class CarRepository {
     getCarById(carId) {
         return __awaiter(this, void 0, void 0, function* () {
             const car = yield carsModel_1.CarsModel.query().findById(carId);
-            return car ? this.mapToCarDTO(car) : undefined;
+            return (car != null) ? this.mapToCarDTO(car) : undefined;
         });
     }
     createCar(carData) {
@@ -67,7 +67,7 @@ class CarRepository {
     }
     deleteCarById(carId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return carsModel_1.CarsModel.query().deleteById(carId);
+            return yield carsModel_1.CarsModel.query().deleteById(carId);
         });
     }
     getTotalCount(category, name) {
@@ -81,7 +81,7 @@ class CarRepository {
                 const nameLowerCase = name.toLowerCase();
                 query.whereRaw('LOWER(name) LIKE ?', [`%${nameLowerCase}%`]);
             }
-            return query.resultSize();
+            return yield query.resultSize();
         });
     }
 }

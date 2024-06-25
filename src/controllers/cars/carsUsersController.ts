@@ -5,13 +5,13 @@ import CarsUsersRepository from '../../repositories/cars/carsUsers/carsUsersRepo
 
 class CarsUsersController {
   private readonly carsUsersService: CarsUsersService
-  constructor () {
+  constructor() {
     this.carsUsersService = new CarsUsersService(CarsUsersRepository)
     this.getAllCars = this.getAllCars.bind(this)
     this.getCarById = this.getCarById.bind(this)
   }
 
-  async getAllCars (req: Request, res: Response): Promise<void> {
+  async getAllCars(req: Request, res: Response): Promise<void> {
     try {
       const { category, name, page, pageSize } = req.query
       const result = await this.carsUsersService.getAllCars(
@@ -27,7 +27,7 @@ class CarsUsersController {
     }
   }
 
-  async getCarById (req: Request, res: Response): Promise<void> {
+  async getCarById(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params
       const car = await this.carsUsersService.getCarById(id)

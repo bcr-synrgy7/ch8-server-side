@@ -5,11 +5,11 @@ export class RolesModel extends Model {
   id!: string
   userRole!: string
 
-  static get tableName (): string {
+  static get tableName(): string {
     return 'roles'
   }
 
-  static get relationMappings (): any {
+  static get relationMappings(): any {
     return {
       users: {
         relation: Model.HasManyRelation,

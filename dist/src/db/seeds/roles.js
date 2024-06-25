@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.seed = void 0;
+exports.seed = seed;
 function seed(knex) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -18,7 +18,7 @@ function seed(knex) {
                 yield trx('roles').insert([
                     { id: '1', userRole: 'member' },
                     { id: '2', userRole: 'admin' },
-                    { id: '3', userRole: 'super admin' },
+                    { id: '3', userRole: 'super admin' }
                 ]);
             }));
         }
@@ -27,4 +27,3 @@ function seed(knex) {
         }
     });
 }
-exports.seed = seed;

@@ -11,7 +11,7 @@ import { generateUniqueFileName, extractPublicId } from '../../../middlewares/mu
 import carsRepository from '../../../repositories/cars/carsAdmin/carsAdminRepository'
 
 class CarService implements ICarService {
-  async getAllCars (
+  async getAllCars(
     res: Response,
     category?: string,
     name?: string,
@@ -48,7 +48,7 @@ class CarService implements ICarService {
     }
   }
 
-  async getCarById (res: Response, carId: string): Promise<void> {
+  async getCarById(res: Response, carId: string): Promise<void> {
     try {
       const car = await carsRepository.getCarById(carId)
       if (car == null) {
@@ -62,7 +62,7 @@ class CarService implements ICarService {
     }
   }
 
-  async createCar (req: Request): Promise<CarDTO | null> {
+  async createCar(req: Request): Promise<CarDTO | null> {
     const { name, price, category, startRent, finishRent } = req.body
 
     if (!name || !category || !price) {
@@ -136,7 +136,7 @@ class CarService implements ICarService {
     })
   }
 
-  async updateCar (req: Request): Promise<CarDTO | null> {
+  async updateCar(req: Request): Promise<CarDTO | null> {
     const carId = req.params.id
     const { name, price, category, startRent, finishRent } = req.body
 
@@ -197,7 +197,7 @@ class CarService implements ICarService {
     }
   }
 
-  async deleteCarById (req: Request, res: Response, carId: string): Promise<void> {
+  async deleteCarById(req: Request, res: Response, carId: string): Promise<void> {
     try {
       const car = await carsRepository.getCarById(carId)
       if (car == null) {

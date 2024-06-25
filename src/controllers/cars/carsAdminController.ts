@@ -9,7 +9,7 @@ import {
 } from '../../utils/responseHandler'
 
 class CarsAdminController {
-  async getAllCars (req: Request, res: Response): Promise<void> {
+  async getAllCars(req: Request, res: Response): Promise<void> {
     try {
       const category = req.query.category as string | undefined
       const name = req.query.name as string | undefined
@@ -28,12 +28,12 @@ class CarsAdminController {
     }
   }
 
-  async getCarById (req: Request, res: Response): Promise<void> {
+  async getCarById(req: Request, res: Response): Promise<void> {
     const carId = req.params.id
     carService.getCarById(res, carId)
   }
 
-  async createCar (req: Request, res: Response): Promise<void> {
+  async createCar(req: Request, res: Response): Promise<void> {
     try {
       const newCar = await carService.createCar(req)
       if (newCar != null) {
@@ -60,7 +60,7 @@ class CarsAdminController {
     }
   }
 
-  async updateCar (req: Request, res: Response): Promise<void> {
+  async updateCar(req: Request, res: Response): Promise<void> {
     try {
       const updatedCar = await carService.updateCar(req)
       if (updatedCar != null) {
@@ -83,7 +83,7 @@ class CarsAdminController {
     }
   }
 
-  async deleteCar (req: Request, res: Response): Promise<void> {
+  async deleteCar(req: Request, res: Response): Promise<void> {
     const carId = req.params.id
     // Await the promise and handle errors
     try {

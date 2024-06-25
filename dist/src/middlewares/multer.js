@@ -3,7 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.extractPublicId = exports.generateUniqueFileName = void 0;
+exports.generateUniqueFileName = generateUniqueFileName;
+exports.extractPublicId = extractPublicId;
 const multer_1 = __importDefault(require("multer"));
 const storage = multer_1.default.memoryStorage();
 const fileFilter = (req, file, cb) => {
@@ -15,7 +16,7 @@ const fileFilter = (req, file, cb) => {
     else {
         const error = res.status(400).json({
             status: 400,
-            message: 'Hanya diperbolehkan untuk mengunggah file gambar (JPG, PNG)!',
+            message: 'Hanya diperbolehkan untuk mengunggah file gambar (JPG, PNG)!'
         });
         cb(error, false);
     }
@@ -39,9 +40,7 @@ function generateUniqueFileName(fileName) {
     const fileExtension = getFileExtension(fileName);
     return `${timestamp}_${randomCode}.${fileExtension}`;
 }
-exports.generateUniqueFileName = generateUniqueFileName;
 function extractPublicId(imageUrl) {
     const match = imageUrl.match(/\/([^/]+)\/([^/]+)\./);
-    return match ? `${match[1]}/${match[2]}` : null;
+    return (match != null) ? `${match[1]}/${match[2]}` : null;
 }
-exports.extractPublicId = extractPublicId;

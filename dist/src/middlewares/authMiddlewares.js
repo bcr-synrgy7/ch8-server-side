@@ -19,22 +19,25 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const responseHandler_1 = require("../utils/responseHandler");
 dotenv_1.default.config();
 const authenticateToken = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return (0, responseHandler_1.handleErrorResponse)(res, 401, 'Access Token Required');
     }
-    const token = authHeader.split(' ')[1].trim();
+    const token = (_a = authHeader.split(' ')[1]) === null || _a === void 0 ? void 0 : _a.trim(); // Optional chaining for safer access
     try {
         const secretKey = process.env.JWT_SECRET;
         if (!secretKey) {
             throw new Error('JWT_SECRET is not defined');
         }
         const decoded = jsonwebtoken_1.default.verify(token, secretKey);
-        if (!decoded.id) {
+        if (!(decoded === null || decoded === void 0 ? void 0 : decoded.id)) {
+            // Optional chaining to check for existence
             throw new Error('Token does not contain user ID');
         }
         const user = yield usersModel_1.UsersModel.query().findById(decoded.id);
-        if (!user) {
+        if (user == null) {
+            // Explicit check for null or undefined
             return (0, responseHandler_1.handleErrorResponse)(res, 404, 'User not found');
         }
         req.user = user;
@@ -47,7 +50,8 @@ const authenticateToken = (req, res, next) => __awaiter(void 0, void 0, void 0, 
 exports.authenticateToken = authenticateToken;
 const authorizeRoles = (...roles) => {
     return (req, res, next) => {
-        if (!req.user || !roles.includes(req.user.roleId)) {
+        if ((req.user == null) || !roles.includes(req.user.roleId || '')) {
+            // Handle nullable roleId explicitly
             return (0, responseHandler_1.handleErrorResponse)(res, 403, 'Access Denied');
         }
         next();

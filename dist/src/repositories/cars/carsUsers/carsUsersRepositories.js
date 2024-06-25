@@ -13,9 +13,7 @@ const carsModel_1 = require("../../../db/models/carsModel");
 class CarsUsersRepository {
     getAllCars(category, name, page, pageSize) {
         return __awaiter(this, void 0, void 0, function* () {
-            const query = carsModel_1.CarsModel.query()
-                .whereNull('deletedBy')
-                .andWhere('onPublish', true);
+            const query = carsModel_1.CarsModel.query().whereNull('deletedBy').andWhere('onPublish', true);
             if (category) {
                 const categoryLowerCase = category.toLowerCase();
                 query.whereRaw('LOWER(category) = ?', [categoryLowerCase]);
@@ -36,17 +34,14 @@ class CarsUsersRepository {
                 price: car.price,
                 image: car.image,
                 startRent: car.startRent,
-                finishRent: car.finishRent,
+                finishRent: car.finishRent
             }));
         });
     }
     getCarById(carId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const car = yield carsModel_1.CarsModel.query()
-                .findById(carId)
-                .whereNull('deletedBy')
-                .andWhere('onPublish', true);
-            if (!car)
+            const car = yield carsModel_1.CarsModel.query().findById(carId).whereNull('deletedBy').andWhere('onPublish', true);
+            if (car == null)
                 return undefined;
             return {
                 id: car.id,
@@ -55,15 +50,13 @@ class CarsUsersRepository {
                 price: car.price,
                 image: car.image,
                 startRent: car.startRent,
-                finishRent: car.finishRent,
+                finishRent: car.finishRent
             };
         });
     }
     getTotalCount(category, name) {
         return __awaiter(this, void 0, void 0, function* () {
-            const query = carsModel_1.CarsModel.query()
-                .whereNull('deletedBy')
-                .andWhere('onPublish', true);
+            const query = carsModel_1.CarsModel.query().whereNull('deletedBy').andWhere('onPublish', true);
             if (category) {
                 const categoryLowerCase = category.toLowerCase();
                 query.whereRaw('LOWER(category) = ?', [categoryLowerCase]);
@@ -72,7 +65,7 @@ class CarsUsersRepository {
                 const nameLowerCase = name.toLowerCase();
                 query.whereRaw('LOWER(name) LIKE ?', [`%${nameLowerCase}%`]);
             }
-            return query.resultSize();
+            return yield query.resultSize();
         });
     }
 }

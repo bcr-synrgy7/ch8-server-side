@@ -2,7 +2,7 @@ import { Knex } from 'knex'
 import { v4 as uuidv4 } from 'uuid'
 import bcrypt from 'bcrypt'
 
-export async function seed (knex: Knex): Promise<void> {
+export async function seed(knex: Knex): Promise<void> {
   await knex('users').del()
 
   await knex('users').insert([

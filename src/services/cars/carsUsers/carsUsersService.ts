@@ -8,9 +8,9 @@ interface CarResponse {
 }
 
 class CarsUsersService implements CarsUsersServiceInterface {
-  constructor (private readonly repository: CarsUsersRepositoryInterface) {}
+  constructor(private readonly repository: CarsUsersRepositoryInterface) {}
 
-  async getAllCars (category?: string, name?: string, page?: number, pageSize: number = 10): Promise<CarResponse> {
+  async getAllCars(category?: string, name?: string, page?: number, pageSize: number = 10): Promise<CarResponse> {
     const totalCount = await this.repository.getTotalCount(category, name)
     const totalPages = pageSize !== -1 ? Math.ceil(totalCount / pageSize) : 1
     const cars = await this.repository.getAllCars(category, name, page, pageSize)
@@ -21,7 +21,7 @@ class CarsUsersService implements CarsUsersServiceInterface {
     }
   }
 
-  async getCarById (carId: string): Promise<CarUsersDTO | undefined> {
+  async getCarById(carId: string): Promise<CarUsersDTO | undefined> {
     return await this.repository.getCarById(carId)
   }
 }
