@@ -50,7 +50,7 @@ class CarRepository {
     getCarById(carId) {
         return __awaiter(this, void 0, void 0, function* () {
             const car = yield carsModel_1.CarsModel.query().findById(carId);
-            return (car != null) ? this.mapToCarDTO(car) : undefined;
+            return car ? this.mapToCarDTO(car) : undefined;
         });
     }
     createCar(carData) {

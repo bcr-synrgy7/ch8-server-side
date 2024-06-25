@@ -1,6 +1,6 @@
 import { CarsModel } from '../../../db/models/carsModel'
-import { ICarRepository } from './carsAdminRepositoryInterface'
 import { CarDTO } from '../../../dto/cars/carsDto'
+import { ICarRepository } from './carsAdminRepositoryInterface'
 
 class CarRepository implements ICarRepository {
   private mapToCarDTO(car: any): CarDTO {
@@ -45,16 +45,16 @@ class CarRepository implements ICarRepository {
 
   async getCarById(carId: string): Promise<CarDTO | undefined> {
     const car = await CarsModel.query().findById(carId)
-    return (car != null) ? this.mapToCarDTO(car) : undefined
+    return car ? this.mapToCarDTO(car) : undefined
   }
 
   async createCar(carData: Partial<CarDTO>): Promise<CarDTO> {
-    const newCar = await CarsModel.query().insert(carData)
+    const newCar = await CarsModel.query().insert(carData as Partial<CarsModel>)
     return this.mapToCarDTO(newCar)
   }
 
   async updateCar(carId: string, carData: Partial<CarDTO>): Promise<CarDTO> {
-    const updatedCar = await CarsModel.query().patchAndFetchById(carId, carData)
+    const updatedCar = await CarsModel.query().patchAndFetchById(carId, carData as Partial<CarsModel>)
     return this.mapToCarDTO(updatedCar)
   }
 

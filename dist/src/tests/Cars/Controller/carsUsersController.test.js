@@ -20,14 +20,14 @@ jest.mock('../../../utils/responseHandler');
 describe('CarsUsersController', () => {
     let req;
     let res;
-    let next;
+    //   let next: jest.Mock;
     beforeEach(() => {
         req = {};
         res = {
             status: jest.fn().mockReturnThis(),
             json: jest.fn().mockReturnThis()
         };
-        next = jest.fn();
+        // next = jest.fn();
     });
     afterEach(() => {
         jest.clearAllMocks();
